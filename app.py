@@ -7,7 +7,6 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
-
 @app.route('/process', methods=['POST'])
 def process():
     text = request.form.get('text')
@@ -18,6 +17,7 @@ def process():
         f.write(text)
 
     executable_path = os.path.join(os.getcwd(), 'interpeter.exe')
+    print(f"Executable path: {executable_path}")
 
     if os.path.exists('test.bmp'):
         os.remove('test.bmp')
@@ -26,11 +26,14 @@ def process():
         result = subprocess.run([executable_path], check=True, capture_output=True, text=True)
         output = result.stdout
     except subprocess.CalledProcessError as e:
-        output = f"Error running the executable: {e}"
+        output = f"Error running the executable: {e.stdout}\n{e.stderr}"
     except FileNotFoundError as e:
         output = f"File not found: {e}"
+    except Exception as e:
+        output = f"Unexpected error: {str(e)}\n{traceback.format_exc()}"
 
     bmp_exists = os.path.exists('test.bmp')
+    print(f"BMP exists: {bmp_exists}")
 
     return jsonify({
         'bmp_exists': bmp_exists,
