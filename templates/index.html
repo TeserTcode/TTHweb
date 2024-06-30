@@ -13,12 +13,12 @@
         }
         #bmp-image {
             display: none;
-            width: 100%;
+            width: 100%; /* Default width to 100% */
             height: auto;
         }
         #command-output {
             width: 300px;
-            white-space: pre-wrap;
+            white-space: pre-wrap; /* Preserve formatting of command output */
             border: 1px solid #ccc;
             padding: 10px;
             background: #f9f9f9;
@@ -30,34 +30,39 @@
         #console-container {
             flex: 0 0 320px;
         }
+        #image-controls {
+            margin-top: 10px;
+        }
         #example-buttons {
             margin-bottom: 10px;
         }
     </style>
     <script>
-        const backendUrl = 'https://your-backend-service-url.com';
-
         async function processForm(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent default form submission
 
             const form = document.querySelector('form');
             const formData = new FormData(form);
             
+            // Clear previous outputs
             document.getElementById('command-output').innerText = "";
             const img = document.getElementById('bmp-image');
             img.style.display = 'none';
 
-            const response = await fetch(`${backendUrl}/process`, {
+            // Send form data to the server
+            const response = await fetch('/process', {
                 method: 'POST',
                 body: formData
             });
             
             const result = await response.json();
             
+            // Display command output
             document.getElementById('command-output').innerText = result.output;
             
+            // Update image display
             if (result.bmp_exists) {
-                img.src = `${backendUrl}/show_picture?` + new Date().getTime();
+                img.src = '/show_picture?' + new Date().getTime(); // Add a timestamp to force reload
                 img.style.display = 'block';
             }
         }
@@ -87,7 +92,7 @@
         }
 
         async function loadExample(filename) {
-            const response = await fetch(`${backendUrl}/example/${filename}`);
+            const response = await fetch(`/example/${filename}`);
             const text = await response.text();
             document.querySelector('textarea[name="text"]').value = text;
         }
