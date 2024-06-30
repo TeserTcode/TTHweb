@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, render_template, jsonify
+from flask import Flask, render_template, request, send_file, jsonify
 import subprocess
 import os
 
@@ -40,14 +40,6 @@ def show_picture():
         return send_file('test.bmp', mimetype='image/bmp')
     else:
         return "BMP file not found", 404
-
-@app.route('/example/<filename>')
-def example(filename):
-    try:
-        with open(filename, 'r') as f:
-            return f.read()
-    except FileNotFoundError:
-        return "File not found", 404
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
