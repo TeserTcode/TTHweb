@@ -1,0 +1,11 @@
+int a = 0
+int b = 1
+
+for i 0 100 {
+int temp = b
+b = a + b
+a = temp ;
+outl a
+}
+
+kill

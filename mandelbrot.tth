@@ -1,0 +1,41 @@
+
+
+double yw = 100
+double xw = 100
+
+bmp test yw xw 
+
+int ia = 0 int j = 0
+double m = 2
+
+
+form y -m m yw { ++ j int ia = 0
+form x -m m xw { ++ ia
+
+cmplx z = x y
+cmplx c = x y
+
+double g = 100
+double b = 0
+
+for it 0 100 {
+
+readcmplx magn z = val
+
+if (4 < val) { b = 100 it += 150 }
+
+z = (z * z) + c
+
+}
+
+it *= 10
+
+
+torgb it g b HSV
+bmpwrite reverse test j ia it g b
+
+}
+}
+
+bmpsave test
+kill

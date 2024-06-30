@@ -1,0 +1,54 @@
+
+
+func F
+
+z = e ^ z
+
+
+exitfx
+
+
+
+func I
+
+double m = 15
+accuracy = 200
+
+exitfx
+
+
+start
+
+double yw = 200.5
+double xw = 200.1
+
+bmp test yw xw 
+
+int ia = 0 int j = 0
+
+
+fx I
+
+forrm y -m m yw {                  ++ j int ia = 0
+form x -m m xw  {                  ++ ia
+
+cmplx z = x y
+
+fx F
+
+readcmplx deg z = red
+if (red < 0) {red += 360} 
+double green = 100 
+readcmplx magn z = blue 
+blue = 1 generalizedlogistic (((1 log10 blue) - 2) / 1.5)
+blue *= 120
+if (red < 10000 ) {
+torgb red green blue HSL
+ bmpwrite reverse  test  j ia red green blue 
+}
+else { 
+bmpwrite reverse test j ia 255 255 255
+}}}
+
+bmpsave test
+kill
