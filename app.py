@@ -10,7 +10,10 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
-    text = request.form['text']
+    text = request.form.get('text')
+    if not text:
+        return jsonify({'error': 'No text provided'}), 400
+
     with open('main.tth', 'w') as f:
         f.write(text)
 
@@ -33,6 +36,7 @@ def process():
         'bmp_exists': bmp_exists,
         'output': output
     })
+
 
 @app.route('/show_picture')
 def show_picture():
